@@ -43,13 +43,16 @@ export default function Orders(){
 						<tr key={o._id} className="border-t">
 							<td className="py-2">#{o.tableNumber}</td>
 							<td>{o.items.map(i=>`${i.name} x${i.quantity}`).join(', ')}</td>
-							<td>{o.status}</td>
-							<td>₺{o.total}</td>
-							<td className="space-x-1">
-								{o.status==='pending' && <button className="px-2 py-1 border rounded" onClick={()=>update(o._id,'preparing')}>Hazırlanıyor</button>}
-								{o.status==='preparing' && <button className="px-2 py-1 border rounded" onClick={()=>update(o._id,'ready')}>Hazır</button>}
-								{o.status==='ready' && <button className="px-2 py-1 border rounded" onClick={()=>update(o._id,'served')}>Servis Edildi</button>}
+							<td>
+								<select className="border rounded px-2 py-1" value={o.status} onChange={(e)=>update(o._id, e.target.value)}>
+									<option value="pending">Bekliyor</option>
+									<option value="preparing">Hazırlanıyor</option>
+									<option value="ready">Hazır</option>
+									<option value="served">Servis Edildi</option>
+								</select>
 							</td>
+							<td>₺{o.total}</td>
+							<td></td>
 						</tr>
 					))}
 				</tbody>
